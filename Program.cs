@@ -42,6 +42,10 @@ class Program
                     break;
 
                 case "3":
+                    Console.WriteLine("Anna omistjan nimi, jonka puhelinnumeroa haluat muutta");
+                    string? omistajannimi = Console.ReadLine();
+                    Console.WriteLine("Syötä uusi puhelinnumero");
+                    string? uusipuhnumero = Console.ReadLine();
                     break;
 
                 case "4":

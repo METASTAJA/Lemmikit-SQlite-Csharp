@@ -36,13 +36,14 @@ public class LemmikkiDB
             //Lisätään omistaja tietokantaan
             var commandForInsert = connection.CreateCommand();
             commandForInsert.CommandText = "INSERT INTO Omistajat (nimi, puhelin) VALUES (@Nimi, @Puhelin)";
+            //Parametrien lisäys
             commandForInsert.Parameters.AddWithValue("Nimi", nimi);
             commandForInsert.Parameters.AddWithValue("Puhelin", puhelin);
             commandForInsert.ExecuteNonQuery();
 
-             Console.WriteLine("Omistaja lisätty");
+            Console.WriteLine("Omistaja lisätty");
         }
-        
+
     }
 
     //Lisää lemmikin
@@ -55,6 +56,7 @@ public class LemmikkiDB
             //Haetaan omistajan id
             var command1 = connection.CreateCommand();
             command1.CommandText = "SELECT id FROM Omistajat WHERE nimi = @Nimi";
+            //Parametrien lisäys
             command1.Parameters.AddWithValue("Nimi", omistajannimi);
             object? idObj = command1.ExecuteScalar();
 
@@ -69,12 +71,40 @@ public class LemmikkiDB
             //Lisätään lemmikki tietokantaan
             var command2 = connection.CreateCommand();
             command2.CommandText = "INSERT INTO Lemmikit (nimi, laji, omistajan_id) VALUES (@Nimi, @Laji, @Omistajanid)";
+            //Parametrien lisäys
             command2.Parameters.AddWithValue("Nimi", nimi);
             command2.Parameters.AddWithValue("Laji", laji);
             command2.Parameters.AddWithValue("Omistajaid", omistajanid);
             command2.ExecuteNonQuery();
-            
-             Console.WriteLine("Lemmikki lisätty");
+
+            Console.WriteLine("Lemmikki lisätty");
+        }
+    }
+
+    public void puhelinnumeronpaivitys(string nimi, string uusinumero)
+    {
+        //Luodaan yhteys tietokantaan
+        using (var connection = new SqliteConnection(_connectionstring))
+        {
+            connection.Open();
+            //luodaan SQL komento, joka päivittää puhelinnumeron nimen mukaan
+            //SET määrittää mikä sarake on kyseessä
+            var command = connection.CreateCommand();
+            command.CommandText = "UPDATE Omistajat SET puhelin = @Puhelin WHERE nimi = @Nimi";
+            //Parametrien lisäys
+            command.Parameters.AddWithValue("Puhelin", uusinumero);
+            command.Parameters.AddWithValue("Nimi", nimi);
+            //SQL komento joka katsoo montako riviä päivittyi
+            if (command.ExecuteNonQuery() > 0)
+            {
+                //jos rivi päivittyi näytetään tämä
+                Console.WriteLine("Puhelinnumero päivitetty");
+            }
+            else
+            {
+                //jos rivi ei päivittynyt näytetään tämä
+                Console.WriteLine("Omistajaa ei löytynyt");
+            }
         }
     }
 
