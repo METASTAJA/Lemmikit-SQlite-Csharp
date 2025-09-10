@@ -23,6 +23,20 @@ public class LemmikkiDB
         var commandForLemmikit = connection.CreateCommand();
         commandForLemmikit.CommandText = "CREATE TABLE IF NOT EXISTS Lemmikit (id INTEGER PRIMARY KEY,nimi TEXT,laji TEXT,omistajan_id INTEGER)";
         commandForLemmikit.ExecuteNonQuery(); //emmen odota vastausta tältä komennolta
+    }
+
+    //Lisää omistjan
+    public void LisaaOmistja(string nimi, string puhelin)
+    {
+        //Luodaan yhteys tietokantaan
+        using var connection = new SqliteConnection(_connectionstring);
+        connection.Open();
+        //Lisätään omistaja tietokantaan
+        var commandForInsert = connection.CreateCommand();
+        commandForInsert.CommandText = "INSERT INTO Omistajat (nimi, puhelin) VALUES (@Nimi, @Puhelin)";
+        commandForInsert.Parameters.AddWithValue("Nimi", nimi);
+        commandForInsert.Parameters.AddWithValue("Puhelin", puhelin);
+        commandForInsert.ExecuteNonQuery();
 
 
     }

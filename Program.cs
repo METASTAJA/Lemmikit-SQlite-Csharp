@@ -21,6 +21,13 @@ class Program
             switch (valinta)
             {
                 case "1":
+                    Console.WriteLine("Anna omistajan nimi");
+                    string? nimi = Console.ReadLine();
+                    Console.WriteLine("Anna puhelin numero");
+                    string? puhelin = Console.ReadLine();
+                    //Lisätään omistaja tietokantaan
+                    lemmikkiDB.LisaaOmistja(nimi, puhelin);
+                 
                     break;
 
                 case "2":
