@@ -26,7 +26,7 @@ class Program
                     Console.WriteLine("Anna puhelin numero");
                     string? puhelin = Console.ReadLine();
                     //Lisätään omistaja tietokantaan
-                    lemmikkiDB.LisaaOmistja(nimi, puhelin);
+                    lemmikkiDB.LisaaOmistaja(nimi, puhelin);
                  
                     break;
 
@@ -35,8 +35,9 @@ class Program
                     string? lemmikinnimi = Console.ReadLine();
                     Console.WriteLine("Mikä on lemmikin laji?");
                     string? laji = Console.ReadLine();
-                    Console.WriteLine("Anna omistjan nimi");
-                    lemmikkiDB.LisaaOmistja(lemmikinnimi, laji);
+                    Console.WriteLine("Anna omistajan nimi");
+                    string? Onimi = Console.ReadLine();
+                    lemmikkiDB.LisaaLemmikki(lemmikinnimi, Onimi, laji);
 
                     break;
 
