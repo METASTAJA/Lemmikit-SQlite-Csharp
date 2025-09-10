@@ -74,7 +74,7 @@ public class LemmikkiDB
             //Parametrien lisäys
             command2.Parameters.AddWithValue("Nimi", nimi);
             command2.Parameters.AddWithValue("Laji", laji);
-            command2.Parameters.AddWithValue("Omistajaid", omistajanid);
+            command2.Parameters.AddWithValue("Omistajanid", omistajanid);
             command2.ExecuteNonQuery();
 
             Console.WriteLine("Lemmikki lisätty");
@@ -105,6 +105,40 @@ public class LemmikkiDB
                 //jos rivi ei päivittynyt näytetään tämä
                 Console.WriteLine("Omistajaa ei löytynyt");
             }
+        }
+    }
+
+    public  string HaeLemmikki(string haettavanimi)
+    {
+        //luodaan yhteys tietokantaan
+        using (var connection = new SqliteConnection(_connectionstring))
+        {
+            connection.Open();
+            //Luodaan SQL komento joka hakee tarvittavat tiedot
+            var commandForSelect = connection.CreateCommand();
+            commandForSelect.CommandText = @"SELECT Lemmikit.nimi, Omistajat.nimi, Omistajat.puhelin 
+            FROM Lemmikit 
+            JOIN Omistajat ON Lemmikit.omistajan_id = Omistajat.id WHERE Lemmikit.nimi LIKE @Nimi";
+            //lisää parametrit
+            commandForSelect.Parameters.AddWithValue("Nimi", haettavanimi);
+
+            var reader = commandForSelect.ExecuteReader();
+
+            string lemmikit = "";
+            //käydään tulokset läpi riveittäin
+            while (reader.Read())
+            {
+                //Haetaan lemmikin nimi,omistjan nimi ja puhelin numero
+                lemmikit += $"Lemmikki: {reader.GetString(0)}, Omistaja: {reader.GetString(1)}, Puhelin: {reader.GetString(2)}";
+            }
+            reader.Close(); //sulkee readerin
+            //Jos yhtään osumaa ei tullut
+            if (lemmikit == "")
+            {
+                return "Lemmikkiä ei löytynyt";
+            }
+            //Palauttaa osumat
+            return lemmikit;
         }
     }
 

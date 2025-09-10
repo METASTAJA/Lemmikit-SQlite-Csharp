@@ -37,7 +37,7 @@ class Program
                     string? laji = Console.ReadLine();
                     Console.WriteLine("Anna omistajan nimi");
                     string? Onimi = Console.ReadLine();
-                    lemmikkiDB.LisaaLemmikki(lemmikinnimi, Onimi, laji);
+                    lemmikkiDB.LisaaLemmikki(lemmikinnimi, laji, Onimi);
 
                     break;
 
@@ -46,9 +46,14 @@ class Program
                     string? omistajannimi = Console.ReadLine();
                     Console.WriteLine("Syötä uusi puhelinnumero");
                     string? uusipuhnumero = Console.ReadLine();
+                    lemmikkiDB.puhelinnumeronpaivitys(omistajannimi, uusipuhnumero);
                     break;
 
                 case "4":
+                    Console.WriteLine("Anna lemmikin nimi");
+                    string? haettavanimi = Console.ReadLine();
+                    string Lemmikit = lemmikkiDB.HaeLemmikki(haettavanimi);
+                    Console.WriteLine(Lemmikit);
                     break;
 
                 case "5":
