@@ -31,6 +31,12 @@ class Program
                     break;
 
                 case "2":
+                    Console.WriteLine("Anna lemmikin nimi");
+                    string? lemmikinnimi = Console.ReadLine();
+                    Console.WriteLine("Mikä on lemmikin laji?");
+                    string? laji = Console.ReadLine();
+                    Console.WriteLine("Anna omistjan nimi");
+                    
                     break;
 
                 case "3":
