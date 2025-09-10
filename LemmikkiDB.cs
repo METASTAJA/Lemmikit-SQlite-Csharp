@@ -49,8 +49,8 @@ public class LemmikkiDB
         var command = connection.CreateCommand();
         command.CommandText =
             "INSERT INTO Lemmikit (nimi, laji, omistajan_id) VALUES (@Nimi, @Laji)";
-        command.Parameters.AddWithValue("@Nimi", nimi);
-        command.Parameters.AddWithValue("@Laji", laji);
+        command.Parameters.AddWithValue("Nimi", nimi);
+        command.Parameters.AddWithValue("Laji", laji);
         command.ExecuteNonQuery();
     }
 

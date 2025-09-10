@@ -36,7 +36,8 @@ class Program
                     Console.WriteLine("Mikä on lemmikin laji?");
                     string? laji = Console.ReadLine();
                     Console.WriteLine("Anna omistjan nimi");
-                    
+                    lemmikkiDB.LisaaOmistja(lemmikinnimi, laji);
+
                     break;
 
                 case "3":
